@@ -9,7 +9,7 @@
 </head>
 <body>
 
-  <!--- variabili flag per input form --->
+  <!--- elenco validazioni --->
 
   <cfset errorlist = "">
   <cfdump  var="#form#">
@@ -19,6 +19,8 @@
       <cfset errorlist = listAppend(errorlist, "cap")>
     </cfif>
   </cfif>
+
+
 
   <cfdump  var="#errorlist#">
 
@@ -30,11 +32,8 @@
   <cfparam  name="city" default="">
   <cfparam  name="state" default="">
   <cfparam  name="cap" default="">
+  <cfparam  name="pizze" default="">
 
-    <!--- params per select  --->
-
-
- 
   <div class="container mt-5">
     <cfoutput>
       <form class="needs-validation" action="default.cfm" method="post">
@@ -92,29 +91,34 @@
             </cfif>
           </div>
         </div>
-        <label for="pizze">Scegli la tua pizza:</label>
+        <label for="pizze" id="pizze-select">Scegli la tua pizza:</label>
             <select name="pizze" id="pizze">
-              <option value="margherita">Margherita</option>
-              <option value="diavola">Diavola</option>
-              <option value="vegetariana">vegetariana</option>
-              <option value="bufala">Bufala</option>
+              <option name="margherita" value="1" <cfif pizze eq 1 >selected</cfif> >Margherita</option>
+              <option name="diavola" value="2" <cfif pizze eq 2 >selected</cfif> > Diavola</option>
+              <option name="vegetariana" value="3" <cfif pizze eq 3 >selected</cfif> >vegetariana</option>
+              <option name="bufala" value="4" <cfif pizze eq 4 >selected</cfif> >Bufala</option>
             </select>
+           
+           <h1>#form.pizze#</h1>
+           <cfdump var="#form.pizze#">
+
         <div class="mt-3">
-            <input type="radio" id="html" name="rossa" value="HTML">
+            <input type="radio" id="html" name="ingredienti" value="rossa">
             <label for="rossa">rossa</label><br>
-            <input type="radio" id="css" name="bianca" value="CSS">
+            <input type="radio" id="css" name="ingredienti" value="bianca">
             <label for="bianca">bianca</label><br>
-            <input type="radio" id="javascript" name="integrale" value="JavaScript">
+            <input type="radio" id="javascript" name="ingredienti" value="integrale">
             <label for="integrale">integrale</label>
         </div>
           <h3 class="mt-3">INGREDIENTI AGGIUNTIVI</h3>
         <div class="mt-3">
-            <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
-            <label for="vehicle1"> peperoni </label><br>
-            <input type="checkbox" id="vehicle2" name="vehicle2" value="Car">
-            <label for="vehicle2"> funghi</label><br>
-            <input type="checkbox" id="vehicle3" name="vehicle3" value="Boat">
-            <label for="vehicle3"> pomodori</label><br>
+            <cfset list = "peperoni,funghi,pomodori">
+            <input type="checkbox" id="peperoni" name="tipi" value="peperoni" <cfif listFind( list, peperoni)> checked> </cfif>
+            <label for="peperoni"> peperoni </label><br>
+            <input type="checkbox" id="funghi" name="tipi" value="funghi" <cfif listFind( list, funghi)> checked </cfif> >
+            <label for="funghi"> funghi</label><br>
+            <input type="checkbox" id="pomodori" name="tipi" value="pomodori" <cfif listFind( list, pomodori)> checked </cfif> >
+            <label for="pomodori"> pomodori</label><br>
         </div>
         <button class="btn btn-primary mt-3" type="submit" value="submit">Submit form</button>
       </form>
