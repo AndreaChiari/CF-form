@@ -33,20 +33,41 @@
   <cfparam  name="state" default="">
   <cfparam  name="cap" default="">
   <cfparam  name="pizze" default="">
+  <cfparam  name="ingredienti" default="">
+  <cfparam  name="tipi" default="">
   <cfset lista_tipi = "peperoni,funghi,pomodori,olive">
   
-  <cfset ingredients = Arraynew(1)>
-  <cfset ingredients[1] = structNew()>
-  <cfset ingredients[1].name = 'rossa'>
-  <cfset ingredients[1].value = 1>
+  <!---lista tipologia --->
+  <cfset types = Arraynew(1)>
+  <cfset types[1] = structNew()>
+  <cfset types[1].name = 'rossa'>
+  <cfset types[1].value = 1>
   
-  <cfset ingredients[2] = structNew()>
-  <cfset ingredients[2].name = 'bianca'>
-  <cfset ingredients[2].value = 2>
+  <cfset types[2] = structNew()>
+  <cfset types[2].name = 'bianca'>
+  <cfset types[2].value = 2>
 
-  <cfset ingredients[3] = structNew()>
-  <cfset ingredients[3].name = 'integrale'>
-  <cfset ingredients[3].value = 3>
+  <cfset types[3] = structNew()>
+  <cfset types[3].name = 'integrale'>
+  <cfset types[3].value = 3>
+
+  <!---lista pizze --->
+  <cfset pizze = Arraynew(1)>
+  <cfset pizze[1] = structNew()>
+  <cfset pizze[1].name = 'margherita'>
+  <cfset pizze[1].value = 1>
+  
+  <cfset pizze[2] = structNew()>
+  <cfset pizze[2].name = 'diavola'>
+  <cfset pizze[2].value = 2>
+
+  <cfset pizze[3] = structNew()>
+  <cfset pizze[3].name = 'vegetariana'>
+  <cfset pizze[3].value = 3>
+
+  <cfset pizze[4] = structNew()>
+  <cfset pizze[4].name = 'bufala'>
+  <cfset pizze[4].value = 4>
 
   <div class="container mt-5">
     <cfoutput>
@@ -105,28 +126,28 @@
             </cfif>
           </div>
         </div>
-        <label for="pizze" id="pizze-select">Scegli la tua pizza:</label>
-            <select name="pizze" id="pizze">
-              <option name="margherita" value="1" <cfif pizze eq 1 >selected</cfif> >Margherita</option>
-              <option name="diavola" value="2" <cfif pizze eq 2 >selected</cfif> > Diavola</option>
-              <option name="vegetariana" value="3" <cfif pizze eq 3 >selected</cfif> >vegetariana</option>
-              <option name="bufala" value="4" <cfif pizze eq 4 >selected</cfif> >Bufala</option>
+        <label for="lista_pizze" id="pizze-select">Scegli la tua pizza:</label>
+            <select name="listap" id="pizze">
+              <cfloop array="#pizze#" index="p">
+                <option name="#p.name#" value=#p.value# <cfif listap EQ p.value> selected </cfif> >#p.name#</option>
+              </cfloop>
             </select>
            
-
+       <!--- tipologia pizza --->
         <div class="mt-3">
-          <cfloop array="#ingredients#" index="i">
-            <input type="radio" id="#i.name#" name="ingredienti" value= #i.value# <cfif ingredienti EQ i.value> checked  </cfif>>
-            <label for="#i.name#">#i.name#</label><br>
+          <cfloop array="#types#" index="t">
+            <input class="me-2" type="radio" id="#t.name#" name="tipi" value= #t.value# <cfif tipi EQ t.value> checked </cfif>>
+            <label for="#t.name#">#t.name#</label><br>
           </cfloop>
         </div>
+
+        <!--- ingredienti --->
           <h3 class="mt-3">INGREDIENTI AGGIUNTIVI</h3>
         <div class="mt-3">
           <cfloop list="#lista_tipi#" index="t">
-            <input type="checkbox" id="#t#" name="tipi" value="#t#" <cfif ListFind( tipi, t)> checked> </cfif> 
-           <label for="#t#"> #t# </label><br>
+            <input type="checkbox" id="#t#" name="ingredienti" value="#t#" <cfif ListFind( ingredienti, t)> checked> </cfif> 
+            <label for="#t#"> #t# </label><br>
           </cfloop>
-            
         </div>
         <button class="btn btn-primary mt-3" type="submit" value="submit">Submit form</button>
       </form>
