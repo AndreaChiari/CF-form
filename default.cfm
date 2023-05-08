@@ -11,8 +11,8 @@
 
   <!--- elenco validazioni --->
 
-  <cfset errorlist = "">
   <cfdump  var="#form#">
+  <cfset errorlist = "">
   <cfif isDefined("hidden")>
 
     <cfif not isNumeric(cap)>
