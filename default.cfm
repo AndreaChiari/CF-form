@@ -33,6 +33,20 @@
   <cfparam  name="state" default="">
   <cfparam  name="cap" default="">
   <cfparam  name="pizze" default="">
+  <cfset lista_tipi = "peperoni,funghi,pomodori,olive">
+  
+  <cfset ingredients = Arraynew(1)>
+  <cfset ingredients[1] = structNew()>
+  <cfset ingredients[1].name = 'rossa'>
+  <cfset ingredients[1].value = 1>
+  
+  <cfset ingredients[2] = structNew()>
+  <cfset ingredients[2].name = 'bianca'>
+  <cfset ingredients[2].value = 2>
+
+  <cfset ingredients[3] = structNew()>
+  <cfset ingredients[3].name = 'integrale'>
+  <cfset ingredients[3].value = 3>
 
   <div class="container mt-5">
     <cfoutput>
@@ -99,26 +113,20 @@
               <option name="bufala" value="4" <cfif pizze eq 4 >selected</cfif> >Bufala</option>
             </select>
            
-           <h1>#form.pizze#</h1>
-           <cfdump var="#form.pizze#">
 
         <div class="mt-3">
-            <input type="radio" id="html" name="ingredienti" value="rossa">
-            <label for="rossa">rossa</label><br>
-            <input type="radio" id="css" name="ingredienti" value="bianca">
-            <label for="bianca">bianca</label><br>
-            <input type="radio" id="javascript" name="ingredienti" value="integrale">
-            <label for="integrale">integrale</label>
+          <cfloop array="#ingredients#" index="i">
+            <input type="radio" id="#i.name#" name="ingredienti" value= #i.value# <cfif ingredienti EQ i.value> checked  </cfif>>
+            <label for="#i.name#">#i.name#</label><br>
+          </cfloop>
         </div>
           <h3 class="mt-3">INGREDIENTI AGGIUNTIVI</h3>
         <div class="mt-3">
-            <cfset list = "peperoni,funghi,pomodori">
-            <input type="checkbox" id="peperoni" name="tipi" value="peperoni" <cfif listFind( list, peperoni)> checked> </cfif>
-            <label for="peperoni"> peperoni </label><br>
-            <input type="checkbox" id="funghi" name="tipi" value="funghi" <cfif listFind( list, funghi)> checked </cfif> >
-            <label for="funghi"> funghi</label><br>
-            <input type="checkbox" id="pomodori" name="tipi" value="pomodori" <cfif listFind( list, pomodori)> checked </cfif> >
-            <label for="pomodori"> pomodori</label><br>
+          <cfloop list="#lista_tipi#" index="t">
+            <input type="checkbox" id="#t#" name="tipi" value="#t#" <cfif ListFind( tipi, t)> checked> </cfif> 
+           <label for="#t#"> #t# </label><br>
+          </cfloop>
+            
         </div>
         <button class="btn btn-primary mt-3" type="submit" value="submit">Submit form</button>
       </form>
