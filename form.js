@@ -1,8 +1,12 @@
-const select = document.getElementById("pizze-select")
-const radioFormato = document.querySelectorAll("radio-formato")
 
 
-function showFormat(){
-    select.classList.add("dblock");
-}
+$("#listap").change(function(){  
+    
+    if(this.value != 0){
+        $("#formati").fadeIn();
+    }else{
 
+        $("#formati").fadeOut();      
+    }
+  });
+  

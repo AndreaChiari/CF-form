@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <link rel="stylesheet" href="form.css?v1">
     <script defer src="form.js"></script>
     <title>CF form</title>
@@ -71,20 +72,20 @@
   <!---lista pizze (select) --->
   <cfset pizze = Arraynew(1)>
   <cfset pizze[1] = structNew()>
-  <cfset pizze[1].name = '---'>
+  <cfset pizze[1].name = "---">
   <cfset pizze[1].value = 0>
   
   <cfset pizze[2] = structNew()>
   <cfset pizze[2].name = 'margherita'>
-  <cfset pizze[2].value = 2>
+  <cfset pizze[2].value = 1>
 
   <cfset pizze[3] = structNew()>
   <cfset pizze[3].name = 'diavola'>
-  <cfset pizze[3].value = 3>
+  <cfset pizze[3].value = 2>
 
   <cfset pizze[4] = structNew()>
   <cfset pizze[4].name = 'vegetariana'>
-  <cfset pizze[4].value = 4>
+  <cfset pizze[4].value = 3>
 
   <cfset pizze[4] = structNew()>
   <cfset pizze[4].name = 'bufala'>
@@ -151,21 +152,23 @@
         <!--- lista pizze (select) --->
 
         <label for="lista_pizze" id="pizze-select-label">Scegli la tua pizza:</label>
-            <select name="listap" onChange="showFormat()">
-              <cfloop array="#pizze#" index="p">
-                <option name="#p.name#" value=#p.value# <cfif listap EQ p.value> selected </cfif> >#p.name#</option>
-              </cfloop>
-            </select>
+        <select name="listap" id="listap">
+        <cfloop array="#pizze#" index="p">
+          <option name="#p.name#" value=#p.value# id="option"<cfif listap EQ p.value> selected </cfif> >#p.name#</option>
+        </cfloop>
+        </select>
 
-            <div class="mt-3 dnone" id="pizze-select">
-              <h3>Seleziona il formato desiderato</h3>
-              <cfloop array="#formats#" index="f">
-                <input class="me-2" type="radio" id="select" name="formati" value= #f.value#            
-                 <cfif formati EQ f.value> checked </cfif>>
-                <label for="#f.name#">#f.name#</label><br>
-              </cfloop>
-            </div>
             
+        <div class="mt-3 <cfif listap eq ""> dnone </cfif>" id="formati">
+          <h3>Seleziona il formato desiderato</h3>
+          <cfloop array="#formats#" index="f">
+            <input class="me-2" type="radio" id="select" name="formati" value= #f.value#            
+            <cfif formati EQ f.value> checked </cfif>>
+            <label for="#f.name#">#f.name#</label><br>
+          </cfloop>
+          <hr>
+        </div>
+          
 
            
        <!--- tipologia pizza (radio)--->
